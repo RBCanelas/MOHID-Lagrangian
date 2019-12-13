@@ -74,16 +74,16 @@
     !running kernels for each type of tracer
     if (sv%ttype == Globals%Types%base) then
         runKernel = self%LagrangianKinematic(sv, bdata, time) + self%StokesDrift(sv, bdata, time) + self%Windage(sv, bdata, time) + self%DiffusionMixingLength(sv, bdata, time, dt) + self%Aging(sv)
-        !runKernel = self%Beaching(sv, runKernel)
-        runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
+        if (Globals%SimDefs%beachingType == 1) runKernel = self%Beaching(sv, runKernel)
+        if (Globals%SimDefs%beachingType == 2) runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
     else if (sv%ttype == Globals%Types%paper) then
         runKernel = self%LagrangianKinematic(sv, bdata, time) + self%StokesDrift(sv, bdata, time) + self%Windage(sv, bdata, time) + self%DiffusionMixingLength(sv, bdata, time, dt) + self%Aging(sv) + Litter%DegradationFirstOrder(sv)+ VerticalMotion%Buoyancy(sv, bdata, time)
-        !runKernel = self%Beaching(sv, runKernel)
-        runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
+        if (Globals%SimDefs%beachingType == 1) runKernel = self%Beaching(sv, runKernel)
+        if (Globals%SimDefs%beachingType == 2) runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
     else if (sv%ttype == Globals%Types%plastic) then
         runKernel = self%LagrangianKinematic(sv, bdata, time) + self%StokesDrift(sv, bdata, time) + self%Windage(sv, bdata, time) + self%DiffusionMixingLength(sv, bdata, time, dt) + self%Aging(sv) + Litter%DegradationFirstOrder(sv) + VerticalMotion%Buoyancy(sv, bdata, time)
-        !runKernel = self%Beaching(sv, runKernel)
-        runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
+        if (Globals%SimDefs%beachingType == 1) runKernel = self%Beaching(sv, runKernel)
+        if (Globals%SimDefs%beachingType == 2) runKernel = Litter%BeachingHidromod(procID, sv, runKernel)
     end if
     
     runKernel = VerticalMotion%CorrectVerticalBounds(sv, runKernel, bdata, time, dt)

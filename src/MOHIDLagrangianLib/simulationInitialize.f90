@@ -494,6 +494,15 @@
         call XMLReader%getNodeVector(simdefs_node, pts(i), coords)
         call Globals%SimDefs%setboundingbox(pts(i), coords)
     enddo
+    tag="Beaching"
+    att_name="type"
+    read_flag = .false.
+    call XMLReader%getNodeAttribute(simdefs_node, tag, att_name, att_val, read_flag, .false.)
+    if (read_flag) then
+        i = att_val%to_number(kind=1._I4P)
+        call Globals%SimDefs%setBeachingType(i)
+    end if
+    
     call Globals%SimDefs%setCenter()
     call Globals%SimDefs%print()
 

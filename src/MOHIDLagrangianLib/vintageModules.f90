@@ -69,7 +69,7 @@
         bbx(3) = Globals%SimDefs%Pointmin%y
         bbx(4) = Globals%SimDefs%Pointmax%y
         procID = 0
-        call ConstructLitter(procID, startDate, bbx)
+        !call ConstructLitter(procID, startDate, bbx)
         self%ModuleLitterProcID(i) = procID
     end do
     !add more constructs here from MOHID vintage modules - maybe make simplified interface on MOHID side...

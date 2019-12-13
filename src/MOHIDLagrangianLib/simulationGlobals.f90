@@ -74,11 +74,13 @@
         type(vector)    ::  blocksize       !< Size (xyz) of a Block (sub-domain)
         integer         ::  numblocks       !< Number of blocks in the simulation
         integer         ::  numblocksx, numblocksy  !<Number of blocks along x and y
+        integer         ::  beachingType    !< Beaching Algorithm 1:Continuous, 2:MOHID Litter Module (default=1)
     contains
     procedure :: setdp
     procedure :: setdt
     procedure :: setboundingbox
     procedure :: setCenter
+    procedure :: setBeachingType
     procedure :: setblocksize
     procedure :: print => printsimdefs
     end type simdefs_t
@@ -303,6 +305,7 @@
     self%SimDefs%dt = MV
     self%SimDefs%Pointmin = 0.0
     self%SimDefs%Pointmax = 0.0
+    self%SimDefs%beachingType = 1
     !simulation constants
     self%Constants%Gravity= 0.0*ex + 0.0*ey -9.81*ez
     self%Constants%Z0 = 0.0
@@ -1196,7 +1199,7 @@
     !---------------------------------------------------------------------------
     !> @author Ricardo Birjukovs Canelas - MARETEC
     !> @brief
-    !> Bounding box centersetting routine
+    !> Bounding box center setting routine
     !---------------------------------------------------------------------------
     subroutine setCenter(self)
     class(simdefs_t), intent(inout) :: self
@@ -1205,6 +1208,20 @@
     sizem=sizeof(self%Center)
     call SimMemory%adddef(sizem)
     end subroutine
+    
+    !---------------------------------------------------------------------------
+    !> @author Ricardo Birjukovs Canelas - MARETEC
+    !> @brief
+    !> Beaching type setting routine
+    !---------------------------------------------------------------------------
+    subroutine setBeachingType(self, bType)
+    class(simdefs_t), intent(inout) :: self
+    integer, intent(in) :: bType
+    integer :: sizem
+    self%beachingType = bType
+    sizem=sizeof(self%beachingType)
+    call SimMemory%adddef(sizem)
+    end subroutine setBeachingType
 
     !---------------------------------------------------------------------------
     !> @author Ricardo Birjukovs Canelas - MARETEC

@@ -29,6 +29,7 @@
 			<timestep dt="1200.0" units_comment="seconds (s)"/>
 			<BoundingBoxMin x="-9.1" y="42.40" z="-1" units_comment="(deg,deg,m)"/>
 			<BoundingBoxMax x="-8.75" y="42.66" z="1" units_comment="(deg,deg,m)"/>
+			<Beaching type="2" comment="Beaching Algorithm 1:Continuous, 2:MOHID Litter Module (default=1)" />
 		</simulation>
 		<sourceDefinitions>
 			<source>
